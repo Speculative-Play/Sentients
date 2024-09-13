@@ -22,6 +22,8 @@ import { ChatScreen } from "./src/Views/ChatScreen";
 import { Platform } from "react-native";
 import { AppProvider } from "./src/Contexts/AppContext";
 import React from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -46,17 +48,29 @@ export default function App() {
 
   return (
     <AppProvider>
-      {Platform.OS == "web" ? (
-        <React.Fragment>
-          <SettingsPanel />
-          <ChatScreen />
-        </React.Fragment>
-      ) : (
-        <>
-          <StatusBar style="auto" />
-          <ChatScreen />
-        </>
-      )}
+      {Platform.OS == "web" ? <WebVersion /> : <MobileVersion />}
     </AppProvider>
+  );
+}
+
+
+const Stack = createNativeStackNavigator();
+
+const MobileVersion = (props) => {
+  return (
+    <NavigationContainer >
+      <Stack.Navigator screenOptions={{ headerShown: false, }}>
+        <Stack.Screen name="Home" component={ChatScreen} />
+        <Stack.Screen name="Settings" component={SettingsPanel} />
+      </Stack.Navigator>
+    </NavigationContainer>);
+}
+
+const WebVersion = (props) => {
+  return (
+    <React.Fragment>
+      <SettingsPanel />
+      <ChatScreen />
+    </React.Fragment>
   );
 }

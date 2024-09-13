@@ -65,6 +65,7 @@ const MobileTitle = (props) => {
     settingsButton: {
       flexDirection: "row",
       justifyContent: "center",
+      color: SAMColorPalette.message
     },
   });
   return (
@@ -81,7 +82,7 @@ const MobileTitle = (props) => {
       <Ionicons
         name="settings-outline"
         size={18}
-        onPress={null}
+        onPress={() => props.navigate("Settings")}
         style={stylesheet.settingsButton}
       />
     </View>
@@ -105,6 +106,7 @@ export const ChatScreen = (props) => {
       width: Platform.OS == "web" ? "75%" : "100%",
       marginVertical: Platform.OS == "web" ? "3%" : 0,
       flex: 1,
+      backgroundColor: SAMColorPalette.chat_screen_bg
     },
     newMessageBar: {
       flexDirection: "row",
@@ -149,7 +151,7 @@ export const ChatScreen = (props) => {
 
   return (
     <SafeAreaView style={stylesheet.container}>
-      {Platform.OS == "web" ? null : <MobileTitle />}
+      {Platform.OS == "web" ? null : <MobileTitle navigate={props.navigation.navigate} />}
 
       <ScrollView
         ref={messagesRef}

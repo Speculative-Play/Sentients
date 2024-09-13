@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import OpenAI from "openai";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Appearance, useColorScheme } from 'react-native';
+
 export const AppContext = createContext(null);
 
 export const AppProvider = (props) => {
