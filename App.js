@@ -1,5 +1,3 @@
-import { StatusBar } from "expo-status-bar";
-
 import {
   useFonts,
   RobotoMono_100Thin,

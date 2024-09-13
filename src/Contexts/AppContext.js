@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import OpenAI from "openai";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Appearance, useColorScheme } from 'react-native';
+import { StatusBar } from "expo-status-bar";
 
 export const AppContext = createContext(null);
 
@@ -178,6 +179,7 @@ export const AppProvider = (props) => {
           flexDirection: "row",
         }}
       >
+        <StatusBar style={darkmode ? "light" : "dark"} />
         {props.children}
       </SafeAreaProvider>
     </AppContext.Provider>

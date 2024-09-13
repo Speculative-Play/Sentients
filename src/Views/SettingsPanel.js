@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Text, View, StyleSheet, TextInput, Switch } from "react-native";
+import { Text, View, StyleSheet, TextInput, Switch, Platform } from "react-native";
 import { Slider } from "@miblanchard/react-native-slider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppContext } from "../Contexts/AppContext";
@@ -49,7 +49,7 @@ export const SettingsPanel = (props) => {
 
   const stylesheet = StyleSheet.create({
     container: {
-      width: "25%",
+      width: Platform.OS == "web" ? "25%" : "100%",
       alignSelf: "flex-start",
       height: "100%",
       flexDirection: "column",
