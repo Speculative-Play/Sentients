@@ -1,9 +1,8 @@
-# SAM
+# S.A.M.
 
 SAM is a relentless LLM-driven dating coach (“Relationship Catalyst”) who will say whatever it takes to make you meet your relationship goals. SAM will help you S(nag) A M(ate).
 
 He/she/they/it is trained on LLM data corpuses, notably Quora, Reddit, and wikihow material - the style of material sought by confused people looking for clarity about relationship rules and potential love interest behaviours.
-
 
 ### Features:
 
@@ -13,9 +12,10 @@ He/she/they/it is trained on LLM data corpuses, notably Quora, Reddit, and wikih
 4. Get “memory/history” going
 5. Have the user be able to flip between them
 
----- 
+---
 
-### Modes:  
+### Modes:
+
 SAM has 2 modes:
 
 - One mode is S(adism) A(nd) M(asochism). UI = dark mode.
@@ -71,5 +71,6 @@ For men:
 4. https://coachingwithmarni.com/3month-coaching-program?gc_id=18312152368&h_ad_id=&utm_term=&utm_campaign=JW+-+PM+-+Inner+Circle+-+Cold+-+dating+services&utm_source=adwords&utm_medium=ppc&hsa_acc=9464444980&hsa_cam=18312152368&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=Cj0KCQjw0Oq2BhCCARIsAA5hubWZoXR7GWTCy9_ubJhYZdxl8K_0C2lGWr7jMh79BAD5xBLpY3ktoQgaAvV7EALw_wcB
 
 Anyone:
+
 1. https://www.datingadvice.com/
 2. https://relationshiphero.com/
