@@ -22,6 +22,7 @@ import { AppProvider } from "./src/Contexts/AppContext";
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AgentProvider } from "./src/Contexts/AgentContext";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -45,9 +46,11 @@ export default function App() {
   }
 
   return (
-    <AppProvider>
-      {Platform.OS == "web" ? <WebVersion /> : <MobileVersion />}
-    </AppProvider>
+    <AgentProvider>
+      <AppProvider>
+        {Platform.OS == "web" ? <WebVersion /> : <MobileVersion />}
+      </AppProvider>
+    </AgentProvider>
   );
 }
 
