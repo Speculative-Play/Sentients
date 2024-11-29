@@ -1,8 +1,25 @@
-# React + Vite
+# Sentients 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The centralized app for all Speculative Play AI chatbots. 
 
-Currently, two official plugins are available:
+## Includes 
+1. Chabot 
+2. Jay Mort 
+3. S.A.M 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Pre-reqs
+1. Node v20
+2. Yarn 1.22.22
+
+## Setting it up 
+1. Clone repo 
+2. Open Terminal in directory 
+3. Run `yarn` 
+4. Then run `yarn dev` - this should open dev server [here](http://localhost:5173)
+
+## Team 
+1. Rilla Khaled 
+2. Ursula J'vlyn d'Ark
+3. Shahrom Ali 
+4. Femke Kocken 
+5. Shayne La Rocque
