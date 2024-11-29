@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import * as React from "react";
+import SentientCard from "./SentientCard";
+import { sentientData } from "./sentientData";
 
-function App() {
-  const [count, setCount] = useState(0)
 
+function SentientsLayout() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex overflow-hidden flex-col items-center min-h-screen px-20 pt-12 pb-4 bg-black max-md:px-5">
+      <div className="flex flex-col items-center w-full max-w-full max-md:max-w-full">
+        <h1 className="text-4xl font-bold text-center text-white">
+          Sentients
+        </h1>
+        <div className="self-stretch mt-10 max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col">
+            {sentientData.map((sentient, index) => (
+              <SentientCard
+                key={sentient.id}
+                name={sentient.name}
+                description={sentient.description}
+                actionText={sentient.actionText}
+                onAction={sentient.onAction}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mt-7 text-xs font-light text-center text-white max-md:max-w-full">
+          a speculative design project from TAG Research Center, Concordia University, Montreal.
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default SentientsLayout;
