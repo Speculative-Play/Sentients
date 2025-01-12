@@ -1,5 +1,6 @@
 import * as React from "react";
 import SentientCard from "./SentientCard";
+import { useNavigate } from "react-router";
 
 const sentientData = [
   {
@@ -8,7 +9,7 @@ const sentientData = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
     actionText: "Talk to S.A.M.",
-    onAction: () => console.log("S.A.M. interaction initiated"),
+    route: "/sam"
   },
   {
     id: "jaymort-1",
@@ -16,7 +17,7 @@ const sentientData = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
     actionText: "Talk to Jay",
-    onAction: () => console.log("Jay Mort interaction initiated"),
+    route: "/jaymort"
   },
   {
     id: "chabot-1",
@@ -24,11 +25,15 @@ const sentientData = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
     actionText: "Talk to Chabot",
-    onAction: () => console.log("Chabot interaction initiated"),
+    route: "/chabot"
+
   },
 ];
 
 const SentientsLayout = () => {
+  
+  let navigate = useNavigate();
+
   return (
     <div className="flex overflow-hidden flex-col items-center min-h-screen px-20 pt-12 pb-4 bg-black max-md:px-5">
       <div className="flex flex-col items-center w-full max-w-full max-md:max-w-full">
@@ -41,7 +46,7 @@ const SentientsLayout = () => {
                 name={sentient.name}
                 description={sentient.description}
                 actionText={sentient.actionText}
-                onAction={sentient.onAction}
+                onAction={() => navigate(sentient.route)}
               />
             ))}
           </div>
