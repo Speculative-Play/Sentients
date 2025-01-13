@@ -2,6 +2,9 @@
 
 The centralized app for all Speculative Play AI chatbots. 
 
+## Dev Guides
+1. Each Agent has its own react context. 
+
 ## Includes 
 1. Chabot 
 2. Jay Mort 
