@@ -18,10 +18,7 @@ const SAM = (props) => {
 const ChatScreen = (props) => {
   const AppC = useContext(AppContext);
   return (
-    <div
-      className="h-full bg-white flex flex-col py-3 px-3 justify-stretch"
-      style={{ width: "70%" }}
-    >
+    <div className="h-full w-2/3 bg-white flex flex-col py-3 px-3 justify-stretch max-md:w-full max-md:h-full">
       <div className="flex-1">
         <ChatBubble message="Hi! I'm S.A.M. Your relationship Coach!" goodSam />
         <ChatBubble
@@ -41,19 +38,12 @@ const ChatScreen = (props) => {
 
 const SidePanel = (props) => {
   return (
-    <div
-      className="h-full flex-1 text-center justify-center p-8 bg-orange-200"
-      style={{
-        maxWidth: "30%",
-      }}
-    >
-      <h1 className="font-semibold text-2xl py-5">Snag A Mate</h1>
-      <p className="italic font-light text-[8px]">
+    <div className="h-full w-1/3 flex-1 text-center justify-center p-8 bg-orange-200 flex flex-col max-md:w-full max-md:h-[10%]">
+      <h1 className="font-semibold text-2xl py-2">Snag A Mate</h1>
+      <p className="italic font-light text-[8px] max-md:text-[0px]">
         Sometimes Sweet And Meek, Sometimes Sadistic And Masochistic.
       </p>
-      <p className="italic font-light text-m">
-        Your Relationship Coaches!
-      </p>
+      <p className="italic font-light text-m max-md:text-[0px]">Your Relationship Coaches!</p>
     </div>
   );
 };
