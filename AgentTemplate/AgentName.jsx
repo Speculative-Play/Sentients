@@ -1,7 +1,7 @@
 // Root for Jay Mort
 import { useContext } from "react";
-import { ScreenContainer } from "../common";
-import AppContext, { AppProvider } from "./AgentNameContext";
+import { ScreenContainer } from "../src/common.jsx";
+import AppContext, { AppProvider } from "./AgentNameContext.jsx";
 
 const AgentName = (props) => {
   return (
