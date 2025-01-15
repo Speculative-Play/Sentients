@@ -43,7 +43,9 @@ export const AppProvider = (props) => {
   }, [thread]);
 
   useEffect(() => {
-    elem.scrollTop = elem.scrollHeight;
+    if (elem){ 
+      elem.scrollTop = elem?.scrollHeight;
+    }
   }, [history]);
 
   async function CreateThread() {
