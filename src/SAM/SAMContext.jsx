@@ -9,7 +9,7 @@ import OpenAI from "openai";
  * Run an assistant on the thread to spit out a response
  * auto-update the history
  * scroll to the bottom of the screen
- * 
+ *
  * Need onboarding
  * Need Fine tuning
  * Need Unprompted messages.
@@ -18,9 +18,12 @@ import OpenAI from "openai";
 const AppContext = createContext(null);
 export const AppProvider = (props) => {
   const [loading, setLoading] = useState(false);
+
   const [neutralSam, setNeutralSam] = useState("asst_lvoHorWhBIbBaB3c6NKKAys5");
   const [badSam, setBadSam] = useState(import.meta.env.VITE_BADSAM);
   const [goodSam, setGoodSam] = useState(import.meta.env.VITE_GOODSAM);
+  const [selectedSam, setSelectedSam] = useState(0); //0 is good, 1 is bad sam
+
   const [thread, setThread] = useState(null);
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState(null);
@@ -43,7 +46,7 @@ export const AppProvider = (props) => {
   }, [thread]);
 
   useEffect(() => {
-    if (elem){ 
+    if (elem) {
       elem.scrollTop = elem?.scrollHeight;
     }
   }, [history]);
@@ -85,7 +88,6 @@ export const AppProvider = (props) => {
         .list(thread?.id, { limit: 100 })
         .then((resp) => {
           setHistory(resp.body.data?.reverse());
-          console.log(resp.body.data);
         });
     }
   }
@@ -101,39 +103,18 @@ export const AppProvider = (props) => {
           content: message,
         })
         .then(() => {
-          DecideSam();
+          GetSamResponse();
           FetchThreadMessages();
           setMessage("");
         });
     }
   }
 
-  function DecideSam() {
-    return GetSamResponse(Math.floor(Math.random() * 2));
-  }
-
-  async function GetSamResponse(goodSam) {
+  async function GetSamResponse() {
     setLoading(true);
-    if (goodSam === 0) return GoodSamResponse();
-    else return BadSamResponse();
-  }
-
-  async function GoodSamResponse() {
     openai.beta.threads.runs
       .createAndPoll(thread.id, {
-        assistant_id: goodSam,
-      })
-      .then(() => {
-        FetchThreadMessages();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-  async function BadSamResponse() {
-    openai.beta.threads.runs
-      .createAndPoll(thread.id, {
-        assistant_id: badSam,
+        assistant_id: selectedSam == 0 ? goodSam : badSam,
       })
       .then(() => {
         FetchThreadMessages();
@@ -163,6 +144,8 @@ export const AppProvider = (props) => {
         badSam,
         message,
         setMessage,
+        selectedSam,
+        setSelectedSam,
       }}
     >
       {props.children}

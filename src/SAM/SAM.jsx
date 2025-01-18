@@ -2,14 +2,17 @@
 import { useContext } from "react";
 import { ScreenContainer } from "../common";
 import AppContext, { AppProvider } from "./SAMContext";
-import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
-import { TrashIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowsRightLeftIcon,
+  PaperAirplaneIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/16/solid";
 
 const SAM = (props) => {
   return (
     <AppProvider>
       <ScreenContainer>
-        <SidePanel />
+        <TopBar />
         <ChatScreen />
       </ScreenContainer>
     </AppProvider>
@@ -19,8 +22,8 @@ const SAM = (props) => {
 const ChatScreen = (props) => {
   const AppC = useContext(AppContext);
   return (
-    <div className="h-full w-2/3 bg-white flex flex-col py-3 px-3 justify-stretch max-md:w-full max-md:h-full">
-      <div id="chatscreen" className="flex-1 overflow-y-scroll">
+    <div className="h-[90%] w-full bg-white flex flex-col py-3 px-3 justify-stretch max-md:w-full max-md:h-full">
+      <div id="chatscreen" className="h-full overflow-y-scroll">
         {AppC.history?.map((item, index) => {
           return <ChatBubble key={index} item={item} />;
         })}
@@ -45,23 +48,18 @@ const ChatScreen = (props) => {
   );
 };
 
-const SidePanel = (props) => {
+const TopBar = (props) => {
   const AppC = useContext(AppContext);
   return (
-    <div className="h-full w-1/3 text-center p-8 bg-orange-200 flex flex-col max-md:w-full max-md:h-[10%]">
-      <h1 className="font-semibold text-2xl py-2">Snag A Mate</h1>
-      <p className="italic font-light text-[8px] max-md:text-[0px]">
-        Sometimes Sweet And Meek, Sometimes Sadistic And Masochistic.
-      </p>
-      <p className="italic font-light text-m max-md:text-[0px]">
-        Your Relationship Coaches!
-      </p>
-
-      <div
-        className="flex flex-row self-center my-4 text-white bg-slate-800 hover:bg-slate-400 rounded-lg content-center px-2 items-center "
-        onClick={AppC.ClearChatHistory}
-      >
-        <p className="font-semibold ">Clear Chat</p>
+    <div className="h-[10%] w-full text-left p-8 bg-orange-200 flex flex-row justify-between items-center max-md:w-full max-md:h-[10%] max-md:text-[10px]">
+      <div>
+        <h1 className="font-semibold text-xl">Snag A Mate (S.A.M)</h1>
+        <p className="italic font-light text-m">Your Relationship Coaches!</p>
+      </div>
+      <div className="flex flex-row items-center">
+        <SwitchSAMButton />
+        <SwitchChatmodeButton />
+        <ClearChatButton />
       </div>
     </div>
   );
@@ -72,7 +70,7 @@ const ChatBubble = (props) => {
   const AppC = useContext(AppContext);
 
   tailwindString +=
-    "flex flex-row min-h-10 w-fit max-w-[50%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
+    "flex flex-row min-h-10 w-fit max-w-[40%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
 
   if (props.item !== null) {
     if (props.item.role == "user") {
@@ -113,6 +111,55 @@ const SendButton = (props) => {
       color="#000"
       className="rounded-lg w-7 h-7 hover:bg-slate-200"
     />
+  );
+};
+const SwitchChatmodeButton = (props) => {
+  const AppC = useContext(AppContext);
+  let styleString =
+    "flex flex-row self-center my-4 mx-2 bg-white hover:bg-slate-400 rounded-lg content-center px-2 items-center ";
+  return (
+    <div
+      className={styleString}
+      onClick={() =>
+        AppC.setSelectedSam(() => (AppC.selectedSam === 0 ? 1 : 0))
+      }
+    >
+      <p className="font-semibold ">Switch Chat Mode</p>
+    </div>
+  );
+};
+
+const SwitchSAMButton = (props) => {
+  const AppC = useContext(AppContext);
+  let styleString =
+    "flex flex-row self-center my-4 hover:bg-slate-400 rounded-lg content-center px-2 items-center ";
+
+  if (AppC.selectedSam === 0) {
+    styleString += "bg-sky-400 text-black";
+  } else {
+    styleString += "bg-rose-400 text-white";
+  }
+  return (
+    <div
+      className={styleString}
+      onClick={() =>
+        AppC.setSelectedSam(() => (AppC.selectedSam === 0 ? 1 : 0))
+      }
+    >
+      <p className="font-semibold ">Switch SAM</p>
+    </div>
+  );
+};
+
+const ClearChatButton = (props) => {
+  const AppC = useContext(AppContext);
+  return (
+    <div
+      className="flex flex-row self-center my-4 text-white bg-slate-800 hover:bg-slate-400 rounded-lg content-center px-2 items-center "
+      onClick={AppC.ClearChatHistory}
+    >
+      <p className="font-semibold ">Clear Chat</p>
+    </div>
   );
 };
 

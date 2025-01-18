@@ -3,7 +3,7 @@ import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 
 export const ScreenContainer = (props) => {
   return (
-    <div className="flex flex-row h-screen w-screen max-md:flex-col">
+    <div className="flex flex-col h-screen w-screen max-md:flex-col">
       {props.children}
     </div>
   );
@@ -15,7 +15,7 @@ export const SettingsPanel = (props) => {
   const AppC = props.context ? useContext(props.context) : null;
   return (
     <div
-      className="h-full bg-slate-950 w-1/3 text-white text-center max-md:w-full max-md:h-fit"
+      className="h-[10%] bg-slate-950 w-full text-white text-center max-md:w-full max-md:h-fit"
       style={{ ...props.style }}
     >
       <div className="flex justify-center align-middle content-center p-4 flex-col">
@@ -40,7 +40,7 @@ export const ChatScreen = (props) => {
 
   return (
     <div
-      className="h-full w-2/3 bg-white flex flex-col py-3 px-3 justify-stretch max-md:w-full max-md:h-full"
+      className="h-[90%] w-full bg-slate-900 flex flex-col py-3 px-3 justify-stretch max-md:w-full max-md:h-full"
       style={{ ...props.style }}
     >
       <div className="flex h-full mb-3">{props.children}</div>
@@ -56,7 +56,7 @@ export const MessageBar = (props) => {
       style={{ ...props.style }}
     >
       <input
-        className="h-10 w-full mr-2 px-2 bg-slate-100 rounded-lg"
+        className="h-10 w-full mr-2 px-2 bg-slate-300 rounded-lg"
         style={{ ...props.inputStyle }}
         value={props.message}
         onChange={props.setMessage}
@@ -70,7 +70,7 @@ const SendButton = (props) => {
   return (
     <PaperAirplaneIcon
       onClick={props.onClick}
-      color={props.color ?? "#000"}
+      color={props.color ?? "#d3d3d3"}
       className="rounded-lg w-7 h-7 hover:bg-slate-200"
     />
   );
@@ -94,6 +94,17 @@ const ChatBubble = (props) => {
   return (
     <div className={tailwindString + "w-fit "}>
       <p>{props.message}</p>
+    </div>
+  );
+};
+
+const ClearChatButton = (props) => {
+  return (
+    <div
+      className="flex flex-row self-center my-4 text-white bg-slate-800 hover:bg-slate-400 rounded-lg content-center px-2 items-center "
+      onClick={props.onClick}
+    >
+      <p className="font-semibold ">Clear Chat</p>
     </div>
   );
 };
