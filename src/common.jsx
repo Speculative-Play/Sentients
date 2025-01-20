@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 
+
+export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+export default delay;
+
 export const ScreenContainer = (props) => {
   return (
     <div className="flex flex-col h-screen w-screen max-md:flex-col">

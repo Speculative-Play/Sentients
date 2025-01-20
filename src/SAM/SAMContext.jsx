@@ -23,6 +23,7 @@ export const AppProvider = (props) => {
   const [badSam, setBadSam] = useState(import.meta.env.VITE_BADSAM);
   const [goodSam, setGoodSam] = useState(import.meta.env.VITE_GOODSAM);
   const [selectedSam, setSelectedSam] = useState(0); //0 is good, 1 is bad sam
+  const [chatMode, setChatMode] = useState(0); // 0 is history, 1 is interactive chat
 
   const [thread, setThread] = useState(null);
   const [message, setMessage] = useState("");
@@ -64,7 +65,6 @@ export const AppProvider = (props) => {
         role: "assistant",
         metadata: { sam: "bad" },
       },
-      { content: "off to a great start it seems...", role: "user" },
     ];
     if (!thread_id) {
       openai.beta.threads
@@ -133,11 +133,18 @@ export const AppProvider = (props) => {
     CreateThread();
   }
 
+  function ToggleChatMode() {
+    if (chatMode === 0) setChatMode(1);
+    else if (chatMode === 1) setChatMode(0);
+  }
+
   return (
     <AppContext.Provider
       value={{
         loading,
         history,
+        chatMode,
+        ToggleChatMode,
         SendMessage,
         ClearChatHistory,
         goodSam,
