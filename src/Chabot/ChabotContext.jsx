@@ -52,35 +52,6 @@ export const BotCore = (props) => {
     }
   }, [history]);
 
-  async function SendNewMessage(new_message) {
-    //Assumption: The message coming is a valid message - validation happens in the ChatScreen component.
-    if (openai) {
-      try {
-        let new_history = [...history, { role: "user", content: new_message }];
-
-        setHistory(new_history);
-
-        const completion = await openai.chat.completions.create({
-          messages: new_history,
-          model: "gpt-4o",
-        });
-        new_history = [
-          ...new_history,
-          {
-            role: "assistant",
-            content:
-              completion?.choices[0]?.message?.content ??
-              "Sorry, I'm having some trouble connecting...",
-          },
-        ];
-        setHistory(new_history);
-      } catch (error) {
-        console.error("Error making the request");
-        console.error(error);
-      }
-    }
-  }
-
   function UpdateEmpathy() {
     setEmpathy((empathy % 3) + 1);
   }
@@ -185,7 +156,6 @@ export const BotCore = (props) => {
         UpdateEmpathy,
         UpdateFlirtation,
         setMessage,
-        SendNewMessage,
         SendMessage,
         ToggleChatMode,
         ClearChatHistory,
