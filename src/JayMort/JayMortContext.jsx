@@ -17,10 +17,15 @@ const ASSISTANTS = [
 ];
 
 export const AppProvider = (props) => {
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [chatMode, setChatMode] = useState(0); // 0 is history, 1 is interactive chat
+
   const [day, setDay] = useState(0);
+
+  const [message, setMessage] = useState("");
   const [history, setHistory] = useState();
   const [thread, setThread] = useState(null);
+
   var elem = document.getElementById("chatscreen");
 
   const openai = new OpenAI({
@@ -46,6 +51,7 @@ export const AppProvider = (props) => {
 
   async function CreateThread() {
     const thread_id = localStorage.getItem("Jaymort_ThreadID");
+    console.log(thread_id);
     const starting_messages = [
       {
         content: "Hey, I'm Jay Mort but you can call me Jay. Who are you?",
@@ -91,12 +97,15 @@ export const AppProvider = (props) => {
         })
         .then(() => {
           FetchThreadMessages();
+          JayResponse();
           setMessage("");
         });
     }
   }
 
   async function JayResponse() {
+    setLoading(true);
+
     openai.beta.threads.runs
       .createAndPoll(thread.id, {
         assistant_id: ASSISTANTS[day],
@@ -117,15 +126,31 @@ export const AppProvider = (props) => {
     setDay(day == 1 ? 1 : day - 1);
   }
 
+  function ToggleChatMode() {
+    if (chatMode === 0) setChatMode(1);
+    else if (chatMode === 1) setChatMode(0);
+  }
+
+  function ClearChatHistory() {
+    setThread(null);
+    setHistory(null);
+    localStorage.removeItem("Jaymort_ThreadID");
+    CreateThread();
+  }
+
   return (
     <AppContext.Provider
       value={{
         message,
+        chatMode,
+        loading,
         setMessage,
+        ClearChatHistory,
         history,
         NextDay,
         PreviousDay,
         SendMessage,
+        ToggleChatMode,
       }}
     >
       {props.children}
