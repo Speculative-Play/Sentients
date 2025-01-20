@@ -1,19 +1,105 @@
 // Root for Chabot
 
-import React from "react";
-import SettingsPanel from "./SettingsPanel";
-import ChatScreen from "./ChatScreen";
+import React, { useContext } from "react";
+import TopBar from "./TopBar";
 import { AppProvider } from "./ChabotContext";
 import { ScreenContainer } from "../common";
+import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
+import InteractiveChat from "./InteractiveChat";
+import AppContext from "./ChabotContext";
 
 const Chabot = (props) => {
   return (
     <AppProvider>
       <ScreenContainer>
-        <SettingsPanel />
+        <TopBar />
         <ChatScreen />
       </ScreenContainer>
     </AppProvider>
+  );
+};
+
+const ChatScreen = (props) => {
+  const AppC = useContext(AppContext);
+  return (
+    <div className="flex flex-col h-[90%] w-full bg-white py-3 px-3 justify-stretch max-md:w-full max-md:h-full">
+      {AppC.chatMode == 1 ? <InteractiveChat /> : <ChatHistory />}
+
+      <InputBar />
+    </div>
+  );
+};
+
+const ChatHistory = (props) => {
+  const AppC = useContext(AppContext);
+
+  return (
+    <div id="chatscreen" className="h-full overflow-y-scroll">
+      {AppC.history?.map((item, index) => {
+        return <ChatBubble key={index} item={item} />;
+      })}
+    </div>
+  );
+};
+
+const ChatBubble = (props) => {
+  let tailwindString = "";
+  const AppC = useContext(AppContext);
+
+  tailwindString +=
+    "flex flex-row min-h-10 w-fit max-w-[70%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
+
+  if (props.item !== null) {
+    if (props.item.role == "user") {
+      tailwindString += "justify-self-end ";
+      tailwindString += "rounded-l-lg rounded-br-lg bg-[#f6bd60] ";
+    } else if (props.item.role == "assistant") {
+      tailwindString += "justify-self-start ";
+      tailwindString += "rounded-r-lg rounded-bl-lg bg-[#f5cac3] ";
+    }
+  }
+
+  return (
+    <div className={tailwindString + "w-fit "}>
+      {props.item?.content.length > 0 ? (
+        <p>{props.item?.content[0].text.value}</p>
+      ) : null}
+    </div>
+  );
+};
+
+const InputBar = (props) => {
+  const AppC = useContext(AppContext);
+
+  return (
+    <div className="w-full flex flex-row items-center justify-items-center">
+      <input
+        className="h-10 w-full mr-2 px-2 rounded-lg"
+        value={AppC.message}
+        onChange={(e) => AppC.setMessage(e.target.value)}
+        onSubmitCapture={AppC.SendMessage}
+        disabled={AppC.loading}
+        onFocus={() => {
+          var elem = document.getElementById("chatscreen");
+          elem.scrollTop = elem.scrollHeight;
+        }}
+        style={{ backgroundColor: AppC.loading ? "#d3d3d3" : "#fef9c3" }}
+      />
+
+      <SendButton />
+    </div>
+  );
+};
+
+const SendButton = (props) => {
+  const AppC = useContext(AppContext);
+
+  return (
+    <PaperAirplaneIcon
+      onClick={AppC.SendMessage}
+      color="#fdba74"
+      className="rounded-lg w-7 h-7 hover:bg-slate-200"
+    />
   );
 };
 
