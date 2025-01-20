@@ -27,7 +27,7 @@ export const AppProvider = (props) => {
 
   const [thread, setThread] = useState(null);
   const [message, setMessage] = useState("");
-  const [history, setHistory] = useState(null);
+  const [history, setHistory] = useState([]);
 
   var elem = document.getElementById("chatscreen");
 
@@ -103,8 +103,8 @@ export const AppProvider = (props) => {
           content: message,
         })
         .then(() => {
-          GetSamResponse();
           FetchThreadMessages();
+          GetSamResponse();
           setMessage("");
         });
     }
