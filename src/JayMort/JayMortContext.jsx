@@ -19,12 +19,27 @@ const ASSISTANTS = [
 export const BotCore = (props) => {
   const [loading, setLoading] = useState(false);
   const [chatMode, setChatMode] = useState(0); // 0 is history, 1 is interactive chat
-
   const [day, setDay] = useState(0);
 
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [thread, setThread] = useState(null);
+  const [mort, setMort] = useState(false);
+
+  const BACKGROUNDS_COLORS = [
+    "#f3f3f3",
+    "#f7d5bd",
+    "#b77e73",
+    "#997871",
+    "#746a6b",
+    "#5c5364",
+    "#403947",
+    "#98949d",
+    "#a2a2a2",
+    "#808080",
+    "#202020",
+    "#151515",
+  ];
 
   var elem = document.getElementById("chatscreen");
 
@@ -47,11 +62,34 @@ export const BotCore = (props) => {
     if (elem) {
       elem.scrollTop = elem?.scrollHeight;
     }
+    const user_count = GetUserMessagesCount();
+    if (user_count < 3) {
+      setDay(0); // day 1
+    } else if (user_count >= 3 && user_count < 6) {
+      setDay(1); // day 2
+    } else if (user_count >= 6 && user_count < 9) {
+      setDay(2); // day 3
+    } else if (user_count >= 9 && user_count < 12) {
+      setDay(3); // day 4
+    } else if (user_count >= 13 && user_count < 15) {
+      setDay(4); // day 5
+    } else if (user_count >= 15 && user_count < 17) {
+      setDay(5); // day 6
+    } else if (user_count >= 17 && user_count < 20) {
+      setDay(6); //day 7
+    } else if (user_count >= 20 && user_count < 23) {
+      setDay(7); //day 8
+    } else if (user_count >= 23 && user_count < 26) {
+      setDay(8); //day 9
+    } else if (user_count >= 26 && user_count < 27) {
+      setDay(9); //day 10
+    } else if (user_count >= 30) {
+      setDay(10); //day 11
+    }
   }, [history]);
 
   async function CreateThread() {
     const thread_id = localStorage.getItem("Jaymort_ThreadID");
-    console.log(thread_id);
     const starting_messages = [
       {
         content: "Hey, I'm Jay Mort but you can call me Jay. Who are you?",
@@ -73,6 +111,14 @@ export const BotCore = (props) => {
         setThread(resp);
       });
     }
+  }
+
+  function GetUserMessagesCount() {
+    let count = 0;
+    for (let index = 0; index < history?.length; index++) {
+      if (history[index].role == "user") count++;
+    }
+    return count;
   }
 
   async function FetchThreadMessages() {
@@ -104,6 +150,8 @@ export const BotCore = (props) => {
   }
 
   async function JayResponse() {
+    if (mort) return;
+
     setLoading(true);
 
     openai.beta.threads.runs
@@ -115,6 +163,7 @@ export const BotCore = (props) => {
       })
       .finally(() => {
         setLoading(false);
+        if (day == 10) setMort(true);
       });
   }
 
@@ -127,6 +176,7 @@ export const BotCore = (props) => {
     setThread(null);
     setHistory(null);
     localStorage.removeItem("Jaymort_ThreadID");
+    setMort(false);
     CreateThread();
   }
   function NextDay() {
@@ -139,16 +189,19 @@ export const BotCore = (props) => {
   return (
     <BotController.Provider
       value={{
+        mort,
+        day,
         message,
         chatMode,
         loading,
+        history,
         setMessage,
         ClearChatHistory,
-        history,
         NextDay,
         PreviousDay,
         SendMessage,
         ToggleChatMode,
+        BACKGROUNDS_COLORS,
       }}
     >
       {props.children}

@@ -22,7 +22,10 @@ const JayMort = (props) => {
 const ChatScreen = (props) => {
   const BotC = useContext(BotController);
   return (
-    <div className="flex flex-col h-[90%] w-full bg-white py-3 px-3 justify-stretch max-md:w-full max-md:h-full">
+    <div
+      className="flex flex-col h-[90%] w-full py-3 px-3 justify-stretch max-md:w-full max-md:h-full "
+      style={{ backgroundColor: BotC.BACKGROUNDS_COLORS[BotC.day] }}
+    >
       {BotC.chatMode == 1 ? <InteractiveChat /> : <ChatHistory />}
 
       <InputBar />
@@ -96,7 +99,7 @@ const SendButton = (props) => {
   return (
     <PaperAirplaneIcon
       onClick={BotC.SendMessage}
-      color="#000"
+      color="#a9a9a9"
       className="rounded-lg w-7 h-7 hover:bg-slate-200"
     />
   );

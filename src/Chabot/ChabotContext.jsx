@@ -62,7 +62,6 @@ export const BotCore = (props) => {
 
   async function CreateThread() {
     const thread_id = localStorage.getItem("Chabot_ThreadID");
-    console.log(thread_id);
     const starting_messages = [
       {
         content: "Hey, I'm Chabot, it's nice to meet you!",

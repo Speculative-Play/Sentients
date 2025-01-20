@@ -125,8 +125,6 @@ export const BotCore = (props) => {
   }
 
   function ClearChatHistory() {
-    // console.log("Chat History cleared");
-    // return;
     setThread(null);
     setHistory(null);
     localStorage.removeItem("User_ThreadID");
