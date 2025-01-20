@@ -1,6 +1,6 @@
 import { useEffect, createContext, useState } from "react";
 import OpenAI from "openai";
-const AppContext = createContext(null);
+const BotController = createContext(null);
 
 const ASSISTANTS = [
   import.meta.env.VITE_JAYMORT_DAY1,
@@ -16,7 +16,7 @@ const ASSISTANTS = [
   import.meta.env.VITE_JAYMORT_DAY11,
 ];
 
-export const AppProvider = (props) => {
+export const BotCore = (props) => {
   const [loading, setLoading] = useState(false);
   const [chatMode, setChatMode] = useState(0); // 0 is history, 1 is interactive chat
 
@@ -137,7 +137,7 @@ export const AppProvider = (props) => {
     setDay(day == 1 ? 1 : day - 1);
   }
   return (
-    <AppContext.Provider
+    <BotController.Provider
       value={{
         message,
         chatMode,
@@ -152,8 +152,8 @@ export const AppProvider = (props) => {
       }}
     >
       {props.children}
-    </AppContext.Provider>
+    </BotController.Provider>
   );
 };
 
-export default AppContext;
+export default BotController;

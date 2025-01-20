@@ -1,9 +1,9 @@
-import AppContext from "./SAMContext";
+import BotController from "./SAMContext";
 import { useContext, useState, useEffect } from "react";
 import { delay } from "../common";
 
 const AnimatedChatBubble = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -38,12 +38,12 @@ const AnimatedChatBubble = (props) => {
     if (props.item.role == "assistant") {
       if (
         props.item?.metadata?.sam == "good" ||
-        props.item.assistant_id == AppC.goodSam
+        props.item.assistant_id == BotC.goodSam
       ) {
         tailwindString += "bg-sky-200 ";
       } else if (
         props.item?.metadata?.sam == "bad" ||
-        props.item.assistant_id == AppC.badSam
+        props.item.assistant_id == BotC.badSam
       ) {
         tailwindString += "bg-rose-200 ";
       }
@@ -63,15 +63,15 @@ const AnimatedChatBubble = (props) => {
 };
 
 const InteractiveChat = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
   const [AIMessage, setAIMessage] = useState(null);
   const [userMessage, setUserMessage] = useState(null);
 
   function GetLastAIMessage() {
-    if (AppC.history?.length > 0) {
-      for (let index = AppC.history.length - 1; index >= 0; index--) {
-        if (AppC.history[index].role == "assistant") {
-          setAIMessage(AppC.history[index]);
+    if (BotC.history?.length > 0) {
+      for (let index = BotC.history.length - 1; index >= 0; index--) {
+        if (BotC.history[index].role == "assistant") {
+          setAIMessage(BotC.history[index]);
           break;
         }
       }
@@ -79,10 +79,10 @@ const InteractiveChat = (props) => {
   }
 
   function GetLastUserMessage() {
-    if (AppC.history?.length > 0) {
-      for (let index = AppC.history.length - 1; index >= 0; index--) {
-        if (AppC.history[index].role == "user") {
-          setUserMessage(AppC.history[index]);
+    if (BotC.history?.length > 0) {
+      for (let index = BotC.history.length - 1; index >= 0; index--) {
+        if (BotC.history[index].role == "user") {
+          setUserMessage(BotC.history[index]);
           break;
         }
       }
@@ -96,30 +96,30 @@ const InteractiveChat = (props) => {
 
   useEffect(() => {
     if (
-      AppC.loading === true &&
-      AppC.history !== null &&
-      AppC.history.length > 0
+      BotC.loading === true &&
+      BotC.history !== null &&
+      BotC.history.length > 0
     ) {
       GetLastUserMessage();
     }
     if (
-      AppC.loading === false &&
-      AppC.history !== null &&
-      AppC.history.length > 0
+      BotC.loading === false &&
+      BotC.history !== null &&
+      BotC.history.length > 0
     ) {
       GetLastAIMessage();
     }
-  }, [AppC.loading, AppC.history]);
+  }, [BotC.loading, BotC.history]);
 
   return (
     <div
       id="chatscreen"
       className="h-full flex flex-col justify-between align-super"
     >
-      {AppC.history?.length == 2 ? (
+      {BotC.history?.length == 2 ? (
         <div>
-          <AnimatedChatBubble item={AppC.history[0]} />
-          <AnimatedChatBubble item={AppC.history[1]} />
+          <AnimatedChatBubble item={BotC.history[0]} />
+          <AnimatedChatBubble item={BotC.history[1]} />
         </div>
       ) : (
         <AnimatedChatBubble item={AIMessage} />

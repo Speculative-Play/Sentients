@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
-const AppContext = createContext(null);
+const BotController = createContext(null);
 
-export const AppProvider = (props) => {
+export const BotCore = (props) => {
   return (
-    <AppContext.Provider value={null}>{props.children}</AppContext.Provider>
+    <BotController.Provider value={null}>{props.children}</BotController.Provider>
   );
 };
 
-export default AppContext;
+export default BotController;

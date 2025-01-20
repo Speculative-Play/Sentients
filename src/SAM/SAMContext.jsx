@@ -15,8 +15,8 @@ import OpenAI from "openai";
  * Need Unprompted messages.
  */
 
-const AppContext = createContext(null);
-export const AppProvider = (props) => {
+const BotController = createContext(null);
+export const BotCore = (props) => {
   const [loading, setLoading] = useState(false);
 
   const [neutralSam, setNeutralSam] = useState("asst_lvoHorWhBIbBaB3c6NKKAys5");
@@ -139,7 +139,7 @@ export const AppProvider = (props) => {
   }
 
   return (
-    <AppContext.Provider
+    <BotController.Provider
       value={{
         loading,
         history,
@@ -156,11 +156,11 @@ export const AppProvider = (props) => {
       }}
     >
       {props.children}
-    </AppContext.Provider>
+    </BotController.Provider>
   );
 };
 
-export default AppContext;
+export default BotController;
 
 /// Prompts
 const NEUTRAL_PROMPT =

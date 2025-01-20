@@ -1,21 +1,21 @@
 // Root for Jay Mort
 import { useContext } from "react";
 import { ScreenContainer } from "../src/common.jsx";
-import AppContext, { AppProvider } from "./AgentNameContext.jsx";
+import BotController, { BotCore } from "./AgentNameContext.jsx";
 
 const AgentName = (props) => {
   return (
-    <AppProvider>
+    <BotCore>
       <ScreenContainer>
         <SidePanel />
         <ChatScreen />
       </ScreenContainer>
-    </AppProvider>
+    </BotCore>
   );
 };
 
 const ChatScreen = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
   return (
     <div
       className="border-double border-4 border-black h-full bg-[#d3d3d3]"

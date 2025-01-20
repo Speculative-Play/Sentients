@@ -1,38 +1,38 @@
 // Root for SAM
 import { useContext } from "react";
 import { ScreenContainer } from "../common";
-import AppContext, { AppProvider } from "./SAMContext";
+import BotController, { BotCore } from "./SAMContext";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import TopBar from "./TopBar";
 import InteractiveChat from "./InteractiveChat";
 
 const SAM = (props) => {
   return (
-    <AppProvider>
+    <BotCore>
       <ScreenContainer>
         <TopBar />
         <ChatScreen />
       </ScreenContainer>
-    </AppProvider>
+    </BotCore>
   );
 };
 
 const ChatScreen = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
   return (
     <div className="flex flex-col h-[90%] w-full bg-white py-3 px-3 justify-stretch max-md:w-full max-md:h-full">
-      {AppC.chatMode == 1 ? <InteractiveChat /> : <ChatHistory />}
+      {BotC.chatMode == 1 ? <InteractiveChat /> : <ChatHistory />}
       <InputBar />
     </div>
   );
 };
 
 const ChatHistory = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
 
   return (
     <div id="chatscreen" className="h-full overflow-y-scroll flex flex-col">
-      {AppC.history?.map((item, index) => {
+      {BotC.history?.map((item, index) => {
         return <ChatBubble key={index} item={item} />;
       })}
     </div>
@@ -40,7 +40,7 @@ const ChatHistory = (props) => {
 };
 
 const ChatBubble = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
 
   let tailwindString = "w-fit max-w-[40%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
 
@@ -51,13 +51,13 @@ const ChatBubble = (props) => {
     } else if (props.item.role == "assistant") {
       if (
         props.item?.metadata?.sam == "good" ||
-        props.item.assistant_id == AppC.goodSam
+        props.item.assistant_id == BotC.goodSam
       ) {
         tailwindString += "self-start ";
         tailwindString += "rounded-r-lg rounded-bl-lg bg-sky-200 ";
       } else if (
         props.item?.metadata?.sam == "bad" ||
-        props.item.assistant_id == AppC.badSam
+        props.item.assistant_id == BotC.badSam
       ) {
         tailwindString += "self-end ";
         tailwindString += "rounded-l-lg rounded-br-lg bg-rose-200 ";
@@ -75,21 +75,21 @@ const ChatBubble = (props) => {
 };
 
 const InputBar = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
 
   return (
     <div className="w-full flex flex-row items-center justify-items-center">
       <input
         className="h-10 w-full mr-2 px-2 bg-orange-100 rounded-lg"
-        value={AppC.message}
-        onChange={(e) => AppC.setMessage(e.target.value)}
-        onSubmitCapture={AppC.SendMessage}
-        disabled={AppC.loading}
+        value={BotC.message}
+        onChange={(e) => BotC.setMessage(e.target.value)}
+        onSubmitCapture={BotC.SendMessage}
+        disabled={BotC.loading}
         onFocus={() => {
           var elem = document.getElementById("chatscreen");
           elem.scrollTop = elem.scrollHeight;
         }}
-        style={{ backgroundColor: AppC.loading ? "#d3d3d3" : "#ffedd5" }}
+        style={{ backgroundColor: BotC.loading ? "#d3d3d3" : "#ffedd5" }}
       />
 
       <SendButton />
@@ -98,11 +98,11 @@ const InputBar = (props) => {
 };
 
 const SendButton = (props) => {
-  const AppC = useContext(AppContext);
+  const BotC = useContext(BotController);
 
   return (
     <PaperAirplaneIcon
-      onClick={AppC.SendMessage}
+      onClick={BotC.SendMessage}
       color="#000"
       className="rounded-lg w-7 h-7 hover:bg-slate-200"
     />
