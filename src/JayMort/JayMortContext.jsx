@@ -23,7 +23,7 @@ export const AppProvider = (props) => {
   const [day, setDay] = useState(0);
 
   const [message, setMessage] = useState("");
-  const [history, setHistory] = useState();
+  const [history, setHistory] = useState([]);
   const [thread, setThread] = useState(null);
 
   var elem = document.getElementById("chatscreen");
@@ -118,14 +118,6 @@ export const AppProvider = (props) => {
       });
   }
 
-  function NextDay() {
-    setDay(day == 11 ? 11 : day + 1);
-  }
-
-  function PreviousDay() {
-    setDay(day == 1 ? 1 : day - 1);
-  }
-
   function ToggleChatMode() {
     if (chatMode === 0) setChatMode(1);
     else if (chatMode === 1) setChatMode(0);
@@ -137,7 +129,13 @@ export const AppProvider = (props) => {
     localStorage.removeItem("Jaymort_ThreadID");
     CreateThread();
   }
+  function NextDay() {
+    setDay(day == 11 ? 11 : day + 1);
+  }
 
+  function PreviousDay() {
+    setDay(day == 1 ? 1 : day - 1);
+  }
   return (
     <AppContext.Provider
       value={{

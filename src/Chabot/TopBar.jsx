@@ -24,7 +24,7 @@ const TopBar = (props) => {
 const SwitchChatmodeButton = (props) => {
   const AppC = useContext(AppContext);
   let styleString =
-    "flex flex-row self-center my-4 mx-2 bg-white hover:bg-slate-400 rounded-lg content-center px-2 items-center ";
+    "flex flex-row self-center my-4 mx-2 text-center bg-white hover:bg-slate-400 rounded-lg content-center px-2 items-center ";
   return (
     <div className={styleString} onClick={AppC.ToggleChatMode}>
       <p className="font-semibold ">
@@ -38,7 +38,7 @@ const ClearChatButton = (props) => {
   const AppC = useContext(AppContext);
   return (
     <div
-      className="flex flex-row self-center my-4 text-white bg-slate-800 hover:bg-slate-400 rounded-lg content-center px-2 items-center "
+      className="flex flex-row self-center my-4 text-center text-white bg-slate-800 hover:bg-slate-400 rounded-lg content-center px-2 items-center "
       onClick={AppC.ClearChatHistory}
     >
       <p className="font-semibold ">Clear Chat</p>

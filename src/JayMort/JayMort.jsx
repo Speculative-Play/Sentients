@@ -13,7 +13,7 @@ const JayMort = (props) => {
     <AppProvider>
       <ScreenContainer>
         <TopBar title={"Jay Mort"} subtitle={"Terminally ill"} />
-        <ChatScreen context={AppContext} />
+        <ChatScreen />
       </ScreenContainer>
     </AppProvider>
   );
@@ -43,7 +43,6 @@ const ChatHistory = (props) => {
 };
 
 const ChatBubble = (props) => {
-  let tailwindString = "";
   const AppC = useContext(AppContext);
 
   let tailwindString =
