@@ -31,7 +31,7 @@ const ChatHistory = (props) => {
   const AppC = useContext(AppContext);
 
   return (
-    <div id="chatscreen" className="h-full overflow-y-scroll">
+    <div id="chatscreen" className="h-full overflow-y-scroll flex flex-col">
       {AppC.history?.map((item, index) => {
         return <ChatBubble key={index} item={item} />;
       })}
@@ -40,28 +40,26 @@ const ChatHistory = (props) => {
 };
 
 const ChatBubble = (props) => {
-  let tailwindString = "";
   const AppC = useContext(AppContext);
 
-  tailwindString +=
-    "flex flex-row min-h-10 w-fit max-w-[40%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
+  let tailwindString = "w-fit max-w-[40%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
 
   if (props.item !== null) {
     if (props.item.role == "user") {
-      tailwindString += "justify-self-center ";
+      tailwindString += "self-center ";
       tailwindString += "rounded-lg bg-orange-100 ";
     } else if (props.item.role == "assistant") {
       if (
         props.item?.metadata?.sam == "good" ||
         props.item.assistant_id == AppC.goodSam
       ) {
-        tailwindString += "justify-self-start ";
+        tailwindString += "self-start ";
         tailwindString += "rounded-r-lg rounded-bl-lg bg-sky-200 ";
       } else if (
         props.item?.metadata?.sam == "bad" ||
         props.item.assistant_id == AppC.badSam
       ) {
-        tailwindString += "justify-self-end ";
+        tailwindString += "self-end ";
         tailwindString += "rounded-l-lg rounded-br-lg bg-rose-200 ";
       }
     }
