@@ -42,7 +42,7 @@ const ChatHistory = (props) => {
 const ChatBubble = (props) => {
   const BotC = useContext(BotController);
 
-  let tailwindString = "w-fit max-w-[40%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
+  let tailwindString = "w-fit max-w-[60%] px-2.5 py-2.5 mb-2.5 mt-2.5 font-light ";
 
   if (props.item !== null) {
     if (props.item.role == "user") {
