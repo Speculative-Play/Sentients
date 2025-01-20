@@ -1,6 +1,6 @@
 // Root for SAM
-import { useContext, useState, useEffect } from "react";
-import { ScreenContainer, delay } from "../common";
+import { useContext } from "react";
+import { ScreenContainer } from "../common";
 import AppContext, { AppProvider } from "./SAMContext";
 import { PaperAirplaneIcon } from "@heroicons/react/16/solid";
 import TopBar from "./TopBar";
