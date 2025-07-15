@@ -28,6 +28,15 @@ const sentientData = [
     route: "/chabot"
 
   },
+  {
+    id: "schon-1",
+    name: "Schon",
+    description:
+      "SchonGPT - The reflective practitioner.",
+    actionText: "Talk to Donald",
+    route: "/schon"
+
+  },
 ];
 
 const SentientsLayout = () => {
