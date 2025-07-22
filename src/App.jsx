@@ -33,7 +33,7 @@ const sentientData = [
     name: "Schon",
     description:
       "SchonGPT - The reflective practitioner.",
-    actionText: "Talk to Donald",
+    actionText: "Help me clarify my design intentions.",
     route: "/schon"
 
   },

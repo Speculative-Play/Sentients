@@ -5,27 +5,15 @@ const BotController = createContext(null);
 
 const ASSISTANTS = [
   [
-    import.meta.env.VITE_Schon_E1F1,
-    import.meta.env.VITE_Schon_E1F2,
-    import.meta.env.VITE_Schon_E1F3,
-  ],
-  [
-    import.meta.env.VITE_Schon_E2F1,
-    import.meta.env.VITE_Schon_E2F2,
-    import.meta.env.VITE_Schon_E2F3,
-  ],
-  [
-    import.meta.env.VITE_Schon_E3F1,
-    import.meta.env.VITE_Schon_E3F2,
-    import.meta.env.VITE_Schon_E3F3,
-  ],
+    import.meta.env.VITE_Schon_INTERVIEW,
+    import.meta.env.VITE_Schon_FEEDBACK
+  ]
 ];
 export const BotCore = (props) => {
   const [loading, setLoading] = useState(false);
   const [chatMode, setChatMode] = useState(0); // 0 is history, 1 is interactive chat
 
-  const [empathy, setEmpathy] = useState(1);
-  const [flirtation, setFlirtation] = useState(1);
+  const [feedback, setFeedback] = useState(0); // 0 interview mode, 1 feedback mode
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [thread, setThread] = useState(null);
@@ -52,19 +40,15 @@ export const BotCore = (props) => {
     }
   }, [history]);
 
-  function UpdateEmpathy() {
-    setEmpathy((empathy % 3) + 1);
-  }
-
-  function UpdateFlirtation() {
-    setFlirtation((flirtation % 3) + 1);
+  function UpdateFeedback() {
+    setFeedback(feedback);
   }
 
   async function CreateThread() {
     const thread_id = localStorage.getItem("Schon_ThreadID");
     const starting_messages = [
       {
-        content: "Hey, I'm Schon, it's nice to meet you!",
+        content: "Hello. I can help you clarify your design intentions. Please describe what you are working on.",
         role: "assistant",
       },
     ];
@@ -118,7 +102,7 @@ export const BotCore = (props) => {
 
     openai.beta.threads.runs
       .createAndPoll(thread.id, {
-        assistant_id: ASSISTANTS[empathy - 1][flirtation - 1],
+        assistant_id: ASSISTANTS[feedback],
       })
       .then(() => {
         FetchThreadMessages();
@@ -144,16 +128,14 @@ export const BotCore = (props) => {
     <BotController.Provider
       value={{
         //state
-        empathy,
-        flirtation,
+        empathy: feedback,
         history,
         message,
         chatMode,
         loading,
 
         //methods
-        UpdateEmpathy,
-        UpdateFlirtation,
+        UpdateEmpathy: UpdateFeedback,
         setMessage,
         SendMessage,
         ToggleChatMode,

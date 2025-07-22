@@ -6,14 +6,13 @@ const TopBar = (props) => {
   return (
     <div className="flex flex-row h-[10%] w-full text-left p-8 bg-[#f28482]  justify-between items-center max-md:w-full max-md:h-[10%] max-md:text-[10px]">
       <div>
-        <h1 className="font-semibold text-xl text-white">Chabot</h1>
+        <h1 className="font-semibold text-xl text-white">SchönGPT</h1>
         <p className="italic font-light text-m text-white">
-          A therapist who really wants to help
+          Reflective design interviewer
         </p>
       </div>
       <div className="flex flex-row items-center">
-        <EmpathyButton />
-        <FlirtationButton />
+        <FeedbackButton />
         <SwitchChatmodeButton />
         <ClearChatButton />
       </div>
@@ -46,7 +45,7 @@ const ClearChatButton = (props) => {
   );
 };
 
-const EmpathyButton = (props) => {
+const FeedbackButton = (props) => {
   const BotC = useContext(BotController);
   return (
     <div
@@ -54,18 +53,6 @@ const EmpathyButton = (props) => {
       onClick={BotC.UpdateEmpathy}
     >
       <p className="font-semibold ">Empathy: {BotC.empathy}</p>
-    </div>
-  );
-};
-
-const FlirtationButton = (props) => {
-  const BotC = useContext(BotController);
-  return (
-    <div
-      className="flex flex-row self-center my-4 text-center bg-[#f6bd60] hover:bg-slate-400 rounded-lg content-center px-2 items-center "
-      onClick={BotC.UpdateFlirtation}
-    >
-      <p className="font-semibold ">Flirtation: {BotC.flirtation}</p>
     </div>
   );
 };
