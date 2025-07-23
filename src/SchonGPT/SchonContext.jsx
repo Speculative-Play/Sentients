@@ -3,12 +3,10 @@ import OpenAI from "openai";
 
 const BotController = createContext(null);
 
-const ASSISTANTS = [
-  [
-    import.meta.env.VITE_Schon_INTERVIEW,
-    import.meta.env.VITE_Schon_FEEDBACK
-  ]
-];
+const ASSISTANTS = {
+  "Interview": import.meta.env.VITE_SCHON_INTERVIEW,
+  "Feedback" : import.meta.env.VITE_SCHON_FEEDBACK,
+};
 export const BotCore = (props) => {
   const [loading, setLoading] = useState(false);
   const [chatMode, setChatMode] = useState(0); // 0 is history, 1 is interactive chat
@@ -102,7 +100,7 @@ export const BotCore = (props) => {
 
     openai.beta.threads.runs
       .createAndPoll(thread.id, {
-        assistant_id: ASSISTANTS[feedback],
+        assistant_id: ASSISTANTS.Feedback,
       })
       .then(() => {
         FetchThreadMessages();
