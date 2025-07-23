@@ -51,10 +51,10 @@ const ChatBubble = (props) => {
   if (props.item !== null) {
     if (props.item.role == "user") {
       tailwindString += "self-end ";
-      tailwindString += "rounded-l-lg rounded-br-lg bg-[#f6bd60] ";
+      tailwindString += "rounded-l-lg rounded-br-lg bg-gunmetal-800 ";
     } else if (props.item.role == "assistant") {
       tailwindString += "self-start ";
-      tailwindString += "rounded-r-lg rounded-bl-lg bg-[#f5cac3] ";
+      tailwindString += "rounded-r-lg rounded-bl-lg bg-sage-500 ";
     }
   }
 
@@ -82,7 +82,7 @@ const InputBar = (props) => {
           var elem = document.getElementById("chatscreen");
           elem.scrollTop = elem.scrollHeight;
         }}
-        style={{ backgroundColor: BotC.loading ? "#d3d3d3" : "#fef9c3" }}
+        style={{ backgroundColor: BotC.loading ? "#22333b" : "#cad9e0" }}
       />
 
       <SendButton />
@@ -96,7 +96,7 @@ const SendButton = (props) => {
   return (
     <PaperAirplaneIcon
       onClick={BotC.SendMessage}
-      color="#fdba74"
+      color="#475034"
       className="rounded-lg w-7 h-7 hover:bg-slate-200"
     />
   );

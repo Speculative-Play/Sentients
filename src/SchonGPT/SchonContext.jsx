@@ -4,8 +4,8 @@ import OpenAI from "openai";
 const BotController = createContext(null);
 
 const ASSISTANTS = {
-  "Interview": import.meta.env.VITE_SCHON_INTERVIEW,
-  "Feedback" : import.meta.env.VITE_SCHON_FEEDBACK,
+  Interview: import.meta.env.VITE_SCHON_INTERVIEW,
+  Feedback: import.meta.env.VITE_SCHON_FEEDBACK,
 };
 export const BotCore = (props) => {
   const [loading, setLoading] = useState(false);
@@ -39,14 +39,15 @@ export const BotCore = (props) => {
   }, [history]);
 
   function UpdateFeedback() {
-    setFeedback(feedback);
+    setFeedback(feedback == 0 ? 1 : 0);
   }
 
   async function CreateThread() {
     const thread_id = localStorage.getItem("Schon_ThreadID");
     const starting_messages = [
       {
-        content: "Hello. I can help you clarify your design intentions. Please describe what you are working on.",
+        content:
+          "Hello. I can help you clarify your design intentions. Please describe what you are working on.",
         role: "assistant",
       },
     ];
@@ -100,7 +101,7 @@ export const BotCore = (props) => {
 
     openai.beta.threads.runs
       .createAndPoll(thread.id, {
-        assistant_id: ASSISTANTS.Feedback,
+        assistant_id: feedback === 1 ? ASSISTANTS.Feedback : ASSISTANTS.Interview,
       })
       .then(() => {
         FetchThreadMessages();
@@ -126,14 +127,14 @@ export const BotCore = (props) => {
     <BotController.Provider
       value={{
         //state
-        empathy: feedback,
+        feedback,
         history,
         message,
         chatMode,
         loading,
 
         //methods
-        UpdateEmpathy: UpdateFeedback,
+        UpdateFeedback,
         setMessage,
         SendMessage,
         ToggleChatMode,

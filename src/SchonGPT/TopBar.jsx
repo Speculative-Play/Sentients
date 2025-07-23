@@ -4,7 +4,7 @@ import BotController from "./SchonContext";
 const TopBar = (props) => {
   const BotC = useContext(BotController);
   return (
-    <div className="flex flex-row h-[10%] w-full text-left p-8 bg-[#f28482]  justify-between items-center max-md:w-full max-md:h-[10%] max-md:text-[10px]">
+    <div className="flex flex-row h-[10%] w-full text-left p-8  bg-sage-200  justify-between items-center max-md:w-full max-md:h-[10%] max-md:text-[10px]">
       <div>
         <h1 className="font-semibold text-xl text-white">SchönGPT</h1>
         <p className="italic font-light text-m text-white">
@@ -13,31 +13,18 @@ const TopBar = (props) => {
       </div>
       <div className="flex flex-row items-center">
         <FeedbackButton />
-        <SwitchChatmodeButton />
         <ClearChatButton />
       </div>
     </div>
   );
 };
 
-const SwitchChatmodeButton = (props) => {
-  const BotC = useContext(BotController);
-  let styleString =
-    "flex flex-row self-center my-4 mx-2 text-center bg-white hover:bg-slate-400 rounded-lg content-center px-2 items-center ";
-  return (
-    <div className={styleString} onClick={BotC.ToggleChatMode}>
-      <p className="font-semibold ">
-        {BotC.chatMode == 0 ? "Live Chat" : "View History"}
-      </p>
-    </div>
-  );
-};
 
 const ClearChatButton = (props) => {
   const BotC = useContext(BotController);
   return (
     <div
-      className="flex flex-row self-center my-4 text-center text-white bg-slate-800 hover:bg-slate-400 rounded-lg content-center px-2 items-center "
+      className="flex flex-row self-center my-4 text-center text-white bg-raspberry hover:bg-slate-400 rounded-lg content-center px-2 items-center "
       onClick={BotC.ClearChatHistory}
     >
       <p className="font-semibold ">Clear Chat</p>
@@ -47,12 +34,13 @@ const ClearChatButton = (props) => {
 
 const FeedbackButton = (props) => {
   const BotC = useContext(BotController);
+  const color = BotC.feedback === 1 ? "bg-blue-munsell hover:bg-blue-munsell-900" : "bg-gunmetal hover:bg-gunmetal-100"
   return (
     <div
-      className="flex flex-row self-center my-4 mx-2 text-center bg-[#f6bd60] hover:bg-slate-400 rounded-lg content-center px-2 items-center "
-      onClick={BotC.UpdateEmpathy}
+      className={"flex flex-row self-center my-4 mx-2 text-center rounded-lg content-center px-2 items-center " + color}
+      onClick={BotC.UpdateFeedback}
     >
-      <p className="font-semibold ">Empathy: {BotC.empathy}</p>
+      <p className="font-semibold text-white">{BotC.feedback === 0 ? "Interview Mode" : "Feedback Mode"}</p>
     </div>
   );
 };
